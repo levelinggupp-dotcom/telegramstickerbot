@@ -24,7 +24,7 @@ from telegram.ext import (
 
 # --- pip install python-telegram-bot[all] Pillow cairosvg lottie-python ---
 
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
 
 # Conversation states
 WAITING_FOR_STICKER_NAME = 1
