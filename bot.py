@@ -152,7 +152,7 @@ async def check_join(update, context):
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await check_join(update, context):
-    return
+        return
     text = (
         "👋 *Sticker ↔ Image Bot*\n\n"
         "Here's what I can do:\n\n"
