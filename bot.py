@@ -162,6 +162,8 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def handle_sticker(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print("STICKER RECEIVED")
+    print("Animated:", sticker.is_animated)
+    print("Video:", sticker.is_video
     import shutil
     print("FFMPEG PATH:", shutil.which("ffmpeg"))
     sticker = update.message.sticker
