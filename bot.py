@@ -162,11 +162,12 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def handle_sticker(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print("STICKER RECEIVED")
+    sticker = update.message.sticker
     print("Animated:", sticker.is_animated)
     print("Video:", sticker.is_video)
     import shutil
     print("FFMPEG PATH:", shutil.which("ffmpeg"))
-    sticker = update.message.sticker
+    
     msg = await update.message.reply_text("⏳ Converting sticker…")
 
     with tempfile.TemporaryDirectory() as tmpdir:
