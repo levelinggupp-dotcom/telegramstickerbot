@@ -1,0 +1,4 @@
+python-telegram-bot[all]==21.6
+Pillow>=10.0.0
+   # for animated .tgs → GIF
+# ffmpeg must be installed separately on the OS (apt install ffmpeg)
