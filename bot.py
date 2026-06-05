@@ -26,6 +26,9 @@ from telegram.ext import (
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 
+print("TOKEN EXISTS:", BOT_TOKEN is not None)
+print("TOKEN LENGTH:", len(BOT_TOKEN) if BOT_TOKEN else 0)
+
 # Conversation states
 WAITING_FOR_STICKER_NAME = 1
 WAITING_FOR_EMOJI        = 2
