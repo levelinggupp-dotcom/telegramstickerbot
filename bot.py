@@ -131,8 +131,8 @@ async def check_join(update, context):
         if member.status in ["member", "administrator", "creator"]:
             return True
 
-    except Exception:
-        pass
+    except Exception as e:
+        print("JOIN CHECK ERROR:",E)
 
     keyboard = [[
         InlineKeyboardButton(
