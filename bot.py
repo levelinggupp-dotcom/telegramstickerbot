@@ -11,7 +11,7 @@ import subprocess
 from pathlib import Path
 from io import BytesIO
 
-from telegram import Update, InputSticker
+from telegram import Update, InputSticker, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import StickerFormat
 from telegram.ext import (
     Application,
@@ -21,7 +21,7 @@ from telegram.ext import (
     ContextTypes,
     ConversationHandler,
 )
-
+FORCE_JOIN_CHANNEL = "@stickersglobal"
 # --- pip install python-telegram-bot[all] Pillow cairosvg lottie-python ---
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
@@ -121,10 +121,38 @@ def gif_to_webm(gif_path: str, out_webm: str) -> bool:
 
 
 # ─────────────────────────────────────────────
+async def check_join(update, context):
+    try:
+        member = await context.bot.get_chat_member(
+            FORCE_JOIN_CHANNEL,
+            update.effective_user.id
+        )
+
+        if member.status in ["member", "administrator", "creator"]:
+            return True
+
+    except Exception:
+        pass
+
+    keyboard = [[
+        InlineKeyboardButton(
+            "📢 Join Channel",
+            url="https://t.me/stickersglobal"
+        )
+    ]]
+
+    await update.message.reply_text(
+        "❌ Please join our channel first to use this bot.",
+        reply_markup=InlineKeyboardMarkup(keyboard)
+    )
+
+    return False
 #  COMMAND HANDLERS
 # ─────────────────────────────────────────────
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_join(update, context):
+    return
     text = (
         "👋 *Sticker ↔ Image Bot*\n\n"
         "Here's what I can do:\n\n"
@@ -161,6 +189,8 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ─────────────────────────────────────────────
 
 async def handle_sticker(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_join(update, context):
+    return
     print("STICKER RECEIVED")
     sticker = update.message.sticker
     print("Animated:", sticker.is_animated)
